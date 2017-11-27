@@ -10,16 +10,19 @@ import java.util.function.Function;
 public class LambdaScope
 {
   private static int privateStaticInt = 2;
+  private int privateInt = 3;
 
-  public static void scope()
+  public void scope()
   {
     // int x= 0; // pt++ : variable \/ is already defined in the scope
-    Function<String,String> func1 = x -> {System.out.println( x + privateStaticInt); return x; };
+    int y = 1;
+    Function<String,String> func1 = x -> {System.out.println( x + y + privateInt + privateStaticInt); return x; };
     System.out.println( func1.apply("scope2 ")) ;
   }
 
   public static void main( String[] args)
   {
-    LambdaScope.scope();
+    LambdaScope lambdaScope = new LambdaScope();
+    lambdaScope.scope();
   }
 }

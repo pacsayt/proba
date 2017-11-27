@@ -21,7 +21,7 @@ public class ComposeAndThenArticles
   private static String authorName1 = "Name 1";
   private static String authorName2 = "Name 2";
 
-  private static Article article_1_1 = new Article( authorName1, 2010, tags1);
+  private static Article article_1_1 = new Article( authorName1, 2010, tags1); // Article : String author/int publishedY/List<String> tags
   private static Article article_1_2 = new Article( authorName1, 2011, tags2);
   private static Article article_1_3 = new Article( authorName1, 2012, tags3);
 
@@ -39,20 +39,17 @@ public class ComposeAndThenArticles
     articleList3.addAll( articleList2);
 
     // Alap epitokovek -------------------------------------------------------------------------------------------------
-    BiFunction<String, List<Article>, List<Article>> byAuthor =
-            (name, articles) -> articles.stream()
-                                        .filter( a -> a.getAuthor().equals( name))
-                                        .collect( Collectors.toList());
+    BiFunction<String, List<Article>, List<Article>> byAuthor = (name, articles) -> articles.stream()
+                                                                                    .filter( a -> a.getAuthor().equals( name))
+                                                                                    .collect( Collectors.toList());
 
-    BiFunction<String, List<Article>, List<Article>> byTag =
-            (tag, articles) -> articles.stream()
-                                       .filter( a -> a.getTags().contains( tag))
-                                       .collect( Collectors.toList());
+    BiFunction<String, List<Article>, List<Article>> byTag = (tag, articles) -> articles.stream()
+                                                                                .filter( a -> a.getTags().contains( tag))
+                                                                                .collect( Collectors.toList());
 
-    Function<List<Article>, List<Article>> sortByDate =
-            articles -> articles.stream()
-                                .sorted( ( x, y) -> y.published().compareTo( x.published()))
-                                .collect( Collectors.toList());
+    Function<List<Article>, List<Article>> sortByDate = articles -> articles.stream()
+                                                                    .sorted( ( x, y) -> y.published().compareTo( x.published()))
+                                                                    .collect( Collectors.toList());
 
     Function<List<Article>, Optional<Article>> first =  a -> a.stream().findFirst();
 
